@@ -18,28 +18,28 @@ const nameElement = document.getElementById('name');
 
 const foodElement = document.getElementById('food');
 
-const yearElement = document.getElementById('year')
+const yearElement = document.querySelector('#year')
 
 const imageElement = document.querySelector('img');
 
 /* Step 4 - Adding Content */
 
-nameElement.innerHTML = <strong>${fullName}</strong>;
+nameElement.innerHTML = '<strong>'+fullName+'</strong>';
 
-yearElement.textContent = currentYear;
+yearElement.innerHTML = currentYear;
 
 imageElement.setAttribute ('src', profilePicture);
 
-imageElement.setAttribute('alt', `Profile image of ${fullName}`);
+imageElement.setAttribute('alt', 'Profile Image of ' + fullName);
 
 
 /* Step 5 - Array */
 
 // Array storing my favourite food
-let favouriteFood = ['Rice', 'Cow Peas', 'Chappati', 'Rolex', 'Chicken', 'Beef'];
+let favouriteFood = ['Rice', 'Chappati', 'Rolex', 'Chicken', 'Beef'];
 
 // Modify the HTML element with the id of food to display your favorite foods array. 💡Remember that you set a variable named foodElement in Step 3 to reference the element with the id of food.
-foodElement.textContent = favouriteFood.join(', ');
+foodElement.innerHTML = favouriteFood;
 
 // Another single favourite food
 let additionalFavouriteFood = 'Kikomando';
@@ -48,19 +48,20 @@ let additionalFavouriteFood = 'Kikomando';
 favouriteFood.push(additionalFavouriteFood);
 
 // Append the new array
-foodElement.innerHTML += favouriteFood.join('<br>');
+foodElement.innerHTML += `<br>${favouriteFood}`
 
 // remove the first element in the food array
 favouriteFood.shift();
 
 // Upated version of the array after the removal of the first element
-foodElement.innerHTML += favouriteFood.join('<br>');
+foodElement.innerHTML += `<br>${favouriteFood}`
 
 // Remove the last element of the array
 favouriteFood.pop();
 
 // Updated version of the array after the removal of the last element
-foodElement.innerHTML += favouriteFood.join('<br>');
+foodElement.innerHTML += `<br>${favouriteFood}`
+
 
 
 

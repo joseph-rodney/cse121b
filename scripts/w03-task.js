@@ -54,13 +54,23 @@ document.getElementById('getTotal').addEventListener('click', function () {
 
 /* ARRAY METHODS - Functional Programming */
 /* Output Source Array */
-
+// Declare and instantiate an array variable to hold the numbers 1 through 13.
+var numbersArray = Array.from({ length: 13 }, (_, i) => i + 1);
+// Assign the value of the array variable to the HTML element with an ID of array.
+document.getElementById('array').textContent = numbersArray.join(', ');
 /* Output Odds Only Array */
-
+var oddNumbers = numbersArray.filter(num => num % 2 !== 0);
 /* Output Evens Only Array */
-
+var evenNumbers = numbersArray.filter(num => num % 2 === 0);
 /* Output Sum of Org. Array */
-
+var sumOfArray = numbersArray.reduce((acc, num) => acc + num, 0);
+// Assign the result to the HTML element with an ID of sumOfArray.
+document.getElementById('sumOfArray').textContent = sumOfArray;
 /* Output Multiplied by 2 Array */
-
+var multipliedArray = numbersArray.map(num => num * 2);
+document.getElementById('multiplied').textContent = multipliedArray.join(', ');
 /* Output Sum of Multiplied by 2 Array */
+// Use the reduce() array method to sum the array elements after multiplying each element by two.
+var sumOfMultiplied = multipliedArray.reduce((acc, num) => acc + num, 0);
+// Assign the result to the HTML element with an ID of sumOfMultiplied.
+document.getElementById('sumOfMultiplied').textContent = sumOfMultiplied;

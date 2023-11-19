@@ -74,3 +74,14 @@ document.getElementById('multiplied').textContent = multipliedArray.join(', ');
 var sumOfMultiplied = multipliedArray.reduce((acc, num) => acc + num, 0);
 // Assign the result to the HTML element with an ID of sumOfMultiplied.
 document.getElementById('sumOfMultiplied').textContent = sumOfMultiplied;
+
+/* Event Listeners */
+document.getElementById('addNumbers').addEventListener('click', function () {
+    var addNumber1 = Number(document.querySelector('#add1').value);
+    var addNumber2 = Number(document.querySelector('#add2').value);
+    document.querySelector('#sum').value = add(addNumber1, addNumber2);
+});
+
+document.getElementById('subtractNumbers').addEventListener('click', subtractNumbers);
+document.getElementById('multiplyNumbers').addEventListener('click', multiplyNumbers);
+document.getElementById('divideNumbers').addEventListener('click', divideNumbers);

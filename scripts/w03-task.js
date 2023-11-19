@@ -12,7 +12,7 @@ var subtract = function (number1, number2){
 };
 
 /* Arrow Function - Multiply Numbers */
-
+var multiply = (number1, number2) => number1 * number2;
 
 /* Open Function Use - Divide Numbers */
 

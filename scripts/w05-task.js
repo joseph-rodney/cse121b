@@ -1,7 +1,7 @@
 /* W05: Programming Tasks */
 
 /* Declare and initialize global variables */
-const templesElement = document.getElementById(temples);
+const templesElement = document.getElementById("temples");
 let templeList = [];
 
 /* async displayTemples Function */
@@ -52,7 +52,7 @@ const sortBy = (temples) => {
         case "utah":
             displayTemples(temples.filter((temple) => temple.location.includes("Utah")));
             break;
-          case "nonutah":
+          case "notutah":
             displayTemples(temples.filter((temple) => !temple.location.includes("Utah")));
             break;
           case "older":

@@ -57,63 +57,29 @@
       </div>
 
     <!-- Converter Form -->
-    <div class="container">
-        <div class="card mt-3">
+    <div class="container mt-5">
+      <div class="card">
           <div class="card-header">
-            <h3>Currency Converter</h3>
+              <h1 class="card-title">Currency Converter</h1>
           </div>
           <div class="card-body">
-            <form id="converter-form">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="from-amount">From Amount</label>
-                    <input type="number" class="form-control" id="from-amount" value="1" min="0" step="0.01">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="from-currency">From Currency</label>
-                    <select class="form-control" id="from-currency">
-                      <option value="USD" selected>US Dollar</option>
-                      <option value="EUR">Euro</option>
-                      <option value="GBP">British Pound</option>
-                      <option value="JPY">Japanese Yen</option>
-                      <option value="UGX">Ugandan Shilling</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="form-group">
+                  <label for="amount">Enter Amount:</label>
+                  <input type="number" class="form-control" id="amount" placeholder="Enter amount">
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="to-amount">To Amount</label>
-                    <input type="number" class="form-control" id="to-amount" value="0" min="0" step="0.01" readonly>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="to-currency">To Currency</label>
-                    <select class="form-control" id="to-currency">
-                      <option value="USD">US Dollar</option>
-                      <option value="EUR" selected>Euro</option>
-                      <option value="GBP">British Pound</option>
-                      <option value="JPY">Japanese Yen</option>
-                      <option value="UGX">Ugandan Shilling</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="form-group">
+                  <label for="fromCurrency">From Currency:</label>
+                  <select class="form-control" id="fromCurrency"></select>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">Convert</button>
-                </div>
+              <div class="form-group">
+                  <label for="toCurrency">To Currency:</label>
+                  <select class="form-control" id="toCurrency"></select>
               </div>
-            </form>
-            <div class="result" id="result"></div>
+              <button class="btn btn-primary" onclick="convertCurrency()">Convert</button>
+              <p id="result" class="mt-3"></p>
           </div>
-        </div>
       </div>
+  </div>
       
 
       
@@ -131,8 +97,8 @@
       </footer>
       
       
-
-    <script src="scripts/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="scripts/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+      <script src="/w06-task/scripts/app.js"></script>
+      <script src="scripts/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="scripts/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
   </body>
 </html>

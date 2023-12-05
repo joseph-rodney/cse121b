@@ -1,4 +1,4 @@
-const apiKey = 'ET2tDo9RwXEpkuQSgVurXxQR2OalrLHr'; // Replace with your CurrencyBeacon API key
+const apiKey = 'ET2tDo9RwXEpkuQSgVurXxQR2OalrLHr'; // My CurrencyBeacon API key
 const apiUrl = 'https://currencybeacon.com/api/v1/';
 
 // Fetch currency data and populate dropdowns

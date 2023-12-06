@@ -9,47 +9,46 @@ const convert = document.getElementById("convert");
 const result = document.getElementById("result");
 
 // Fetch the latest exchanged rates data from the API
+// Fetch the latest exchanged rates data from the API
 fetch(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}`)
-        .then(function(response) {
-            // Check if the response is ok
-            if (response.ok) {
-                // Return the response as JSON
-                return response.json();
-            } else {
-                // Throw an error
-                throw new Error('Something went wrong.');
-            }
-        })
-        .then(function(data) {
-            // Get the rates object from the data
-            const rates = data.rates;
+    .then(function(response) {
+        // Check if the response is ok
+        if (response.ok) {
+            // Return the response as JSON
+            return response.json();
+        } else {
+            // Throw an error
+            throw new Error('Something went wrong.');
+        }
+    })
+    .then(function(data) {
+        // Get the rates object from the data
+        const rates = data.rates;
 
-            // Loop through the rates object and populate the from currency dropdown
-            Object.keys(rates).forEach(function(key) {
-                // Create an option element
-                const option = document.createElement('option');
-                // Set the value and the text of the option element
-                option.value = key;
-                option.text = key;
-                // Append the option element to the from currency select element
-                fromCurrency.appendChild(option);
-            });
+        // Populate the from currency dropdown
+        populateDropdown(fromCurrency, rates);
 
-            // Loop through the rates object and populate the to currency dropdown
-            Object.keys(rates).forEach(function(key) {
-                // Create an option element
-                const option = document.createElement('option');
-                // Set the value and the text of the option element
-                option.value = key;
-                option.text = key;
-                // Append the option element to the to currency select element
-                toCurrency.appendChild(option);
-            });
-        })
-        .catch(function(error) {
-            // Log the error
-            console.error('Error fetching exchange rates data:', error);
-        });
+        // Populate the to currency dropdown
+        populateDropdown(toCurrency, rates);
+    })
+    .catch(function(error) {
+        // Log the error
+        console.error('Error fetching exchange rates data:', error);
+    });
+
+// Function to populate the dropdown with array method
+function populateDropdown(selectElement, rates) {
+    // Use Object.keys to get an array of currency codes
+    const currencyCodes = Object.keys(rates);
+
+    // Loop through the currency codes and populate the dropdown
+    currencyCodes.forEach(function(code) {
+        const option = document.createElement('option');
+        option.value = code;
+        option.text = code;
+        selectElement.appendChild(option);
+    });
+}
 
     // Add an event listener to the convert button
     convert.addEventListener('click', function(event) {

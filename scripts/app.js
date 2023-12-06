@@ -1,77 +1,110 @@
-const apiKey = 'ET2tDo9RwXEpkuQSgVurXxQR2OalrLHr'; // My CurrencyBeacon API key
-const apiUrl = 'https://currencybeacon.com/api/v1/';
+// API Key from Open Exchange Rates Website
+const apiKey = "5bd04345dfd54b8ab251a9c268d49d7a";
 
-// Fetch currency data and populate dropdowns
-async function fetchCurrencyData() {
-    try {
-        const response = await fetch(`${apiUrl}currencies?api_key=${apiKey}`);
-        const data = await response.json();
+// Get the HTML elements
+const amount = document.getElementById("amount");
+const fromCurrency = document.getElementById("fromCurrency");
+const toCurrency = document.getElementById("toCurrency");
+const convert = document.getElementById("convert");
+const result = document.getElementById("result");
 
-        console.log('API Response:', data); // Log the response for inspection
+// Fetch the latest exchanged rates data from the API
+fetch(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}`)
+        .then(function(response) {
+            // Check if the response is ok
+            if (response.ok) {
+                // Return the response as JSON
+                return response.json();
+            } else {
+                // Throw an error
+                throw new Error('Something went wrong.');
+            }
+        })
+        .then(function(data) {
+            // Get the rates object from the data
+            const rates = data.rates;
 
-        const fromCurrencySelect = document.getElementById('fromCurrency');
-        const toCurrencySelect = document.getElementById('toCurrency');
-
-        // Check if the response is an object with numerical keys
-        if (typeof data === 'object' && !Array.isArray(data)) {
-            // Convert the object values to an array
-            const currencies = Object.values(data);
-
-            // Populate dropdowns with currency options
-            currencies.forEach(currency => {
-                const option1 = document.createElement('option');
-                option1.value = currency.code;
-                option1.text = `${currency.name} (${currency.code})`;
-                fromCurrencySelect.add(option1);
-
-                const option2 = document.createElement('option');
-                option2.value = currency.code;
-                option2.text = `${currency.name} (${currency.code})`;
-                toCurrencySelect.add(option2);
+            // Loop through the rates object and populate the from currency dropdown
+            Object.keys(rates).forEach(function(key) {
+                // Create an option element
+                const option = document.createElement('option');
+                // Set the value and the text of the option element
+                option.value = key;
+                option.text = key;
+                // Append the option element to the from currency select element
+                fromCurrency.appendChild(option);
             });
+
+            // Loop through the rates object and populate the to currency dropdown
+            Object.keys(rates).forEach(function(key) {
+                // Create an option element
+                const option = document.createElement('option');
+                // Set the value and the text of the option element
+                option.value = key;
+                option.text = key;
+                // Append the option element to the to currency select element
+                toCurrency.appendChild(option);
+            });
+        })
+        .catch(function(error) {
+            // Log the error
+            console.error('Error fetching exchange rates data:', error);
+        });
+
+    // Add an event listener to the convert button
+    convert.addEventListener('click', function(event) {
+        // Prevent the default form submission
+        event.preventDefault();
+        // Call the convert function
+        convertCurrency();
+    });
+
+    // Define a function to convert the currency
+    function convertCurrency() {
+        // Get the input and the select values
+        const amountValue = amount.value;
+        const fromCurrencyValue = fromCurrency.value;
+        const toCurrencyValue = toCurrency.value;
+
+        // Check if the input is valid
+        if (amountValue > 0) {
+            // Fetch the latest exchange rates data from the API
+            fetch(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}`)
+                .then(function(response) {
+                    // Check if the response is ok
+                    if (response.ok) {
+                        // Return the response as JSON
+                        return response.json();
+                    } else {
+                        // Throw an error
+                        throw new Error('Something went wrong.');
+                    }
+                })
+                .then(function(data) {
+                    // Get the rates object from the data
+                    const rates = data.rates;
+
+                    // Get the exchange rate for the from currency
+                    const fromRate = rates[fromCurrencyValue];
+
+                    // Get the exchange rate for the to currency
+                    const toRate = rates[toCurrencyValue];
+
+                    // Calculate the converted amount
+                    const convertedAmount = (amountValue / fromRate) * toRate;
+
+                    // Round the converted amount to two decimal places
+                    const roundedAmount = convertedAmount.toFixed(2);
+
+                    // Set the result paragraph text
+                    result.textContent = `${amountValue} ${fromCurrencyValue} is equal to ${roundedAmount} ${toCurrencyValue}`;
+                })
+                .catch(function(error) {
+                    // Log the error
+                    console.error('Error fetching exchange rates data:', error);
+                });
         } else {
-            console.error('Invalid response format. Expected an object with numerical keys.');
+            // Set the result paragraph text
+            result.textContent = 'Please enter a valid amount.';
         }
-    } catch (error) {
-        console.error('Error fetching currency data:', error);
     }
-}
-
-
-// Convert currency
-async function convertCurrency() {
-    try {
-        const amount = document.getElementById('amount').value;
-        const fromCurrency = document.getElementById('fromCurrency').value;
-        const toCurrency = document.getElementById('toCurrency').value;
-
-        const response = await fetch(`${apiUrl}convert?api_key=${apiKey}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`);
-        
-        // Check if the response status is OK (200)
-        if (response.ok) {
-            const data = await response.text(); // Use response.text() instead of response.json()
-            const resultElement = document.getElementById('result');
-            resultElement.textContent = `${amount} ${fromCurrency} is equal to ${data} ${toCurrency}`;
-        } else {
-            // Handle non-OK (error) responses
-            const errorData = await response.text(); // Use response.text() instead of response.json()
-            console.error('Error converting currency:', errorData);
-
-            // Display a user-friendly error message
-            const resultElement = document.getElementById('result');
-            resultElement.textContent = 'An error occurred during conversion. Please try again later.';
-        }
-    } catch (error) {
-        console.error('Error converting currency:', error);
-
-        // Display a user-friendly error message
-        const resultElement = document.getElementById('result');
-        resultElement.textContent = 'An unexpected error occurred. Please try again later.!'; 
-    }
-}
-
-
-// Load currency data when the page loads
-window.onload = function () {
-    fetchCurrencyData();
-};
